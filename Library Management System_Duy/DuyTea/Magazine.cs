@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DuyTea
 {
-    // Concrete Class: Magazine (Inherits from Item)
+    // Concrete Class: Encapsulation
     public class Magazine : Item
     {
         public string Issue { get; set; }
@@ -15,7 +15,6 @@ namespace DuyTea
         {
             Console.WriteLine($"Title: {Title}");
             Console.WriteLine($"Author: {Author}");
-            Console.WriteLine($"ISBN: {ISBN}");
             Console.WriteLine($"Issue: {Issue}");
         }
     }
