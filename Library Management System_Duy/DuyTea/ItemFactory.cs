@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 namespace DuyTea
 {
     // Creational Pattern: Factory Method
-    public abstract class ItemFactory
+    public interface  ItemFactory
     {
-        public abstract Item CreateItem();
+        public  Item CreateItem();
     }
 
     public class BookFactory : ItemFactory
     {
-        public override Item CreateItem()
+        public Item CreateItem()
         {
             return new Book();
         }
@@ -22,7 +22,7 @@ namespace DuyTea
 
     public class MagazineFactory : ItemFactory
     {
-        public override Item CreateItem()
+        public  Item CreateItem()
         {
             return new Magazine();
         }
