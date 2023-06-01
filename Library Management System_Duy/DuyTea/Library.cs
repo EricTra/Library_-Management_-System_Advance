@@ -6,35 +6,79 @@ using System.Threading.Tasks;
 
 namespace DuyTea
 {
-    // Relationship: Unary Association
-    public class Library
+    // Behavioral Pattern
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    namespace DuyTea
     {
-        private LibraryCatalog _catalog;
-        public List<Item> LibraryItems { get; private set; }
+        using System;
+        using System.Collections.Generic;
 
-        public Library()
+        namespace DuyTea
         {
-            _catalog = new LibraryCatalog();
-            LibraryItems = new List<Item>();
-        }
+            // Behavioral Pattern
+            class Library
+            {
+                private List<LibraryItem> items;
+                private List<IUser> users;
 
-        public void AddItemToCatalog(Item item)
-        {
-            _catalog.AddItem(item);
-        }
+                public Library()
+                {
+                    this.items = new List<LibraryItem>();
+                    this.users = new List<IUser>();
+                }
 
-        public void PrintCatalog()
-        {
-            _catalog.PrintCatalog();
-        }
+                public List<IUser> GetUsers()
+                {
+                    return users;
+                }
 
-        public Item FindItem(string title)
-        {
-            return LibraryItems.FirstOrDefault(item => item.Title == title);
-        }
-        public void RemoveItemFromCatalog(Item item)
-        {
-            LibraryItems.Remove(item);
+                public List<LibraryItem> GetItems()
+                {
+                    return items;
+                }
+
+                public void AddItem(ItemType itemType, string title, string details)
+                {
+                    LibraryItem item = (LibraryItem)ItemFactory.CreateItem(itemType, title, details);
+                    items.Add(item);
+                }
+
+                public void RemoveItem(LibraryItem item)
+                {
+                    items.Remove(item);
+                }
+
+                public void AddUser(IUser user)
+                {
+                    users.Add(user);
+                }
+
+                public void RemoveUser(IUser user)
+                {
+                    users.Remove(user);
+                }
+
+                public void PrintItems()
+                {
+                    foreach (var item in items)
+                    {
+                        Console.WriteLine(item.ToString());
+                    }
+                }
+
+                public void PrintUsers()
+                {
+                    foreach (var user in users)
+                    {
+                        Console.WriteLine(user.ToString());
+                    }
+                }
+            }
         }
     }
 }
