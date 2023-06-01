@@ -6,25 +6,32 @@ using System.Threading.Tasks;
 
 namespace DuyTea
 {
-    // Creational Pattern: Factory Method
-    public interface  ItemFactory
+    // Factory Pattern
+    public class ItemFactory
     {
-        public  Item CreateItem();
-    }
-
-    public class BookFactory : ItemFactory
-    {
-        public Item CreateItem()
+        private ItemFactory()
         {
-            return new Book();
+        }
+
+        public static object CreateItem(ItemType itemType, string title, string details)
+        {
+            switch (itemType)
+            {
+                case ItemType.Book:
+                    return new Book(title, details);
+
+                case ItemType.Magazine:
+                    return new Magazine(title, details);
+
+                default:
+                    throw new ArgumentException("This item type is unsupported");
+            }
         }
     }
 
-    public class MagazineFactory : ItemFactory
+    public enum ItemType
     {
-        public  Item CreateItem()
-        {
-            return new Magazine();
-        }
+        Book,
+        Magazine
     }
 }
