@@ -6,18 +6,22 @@ using System.Threading.Tasks;
 
 namespace DuyTea
 {
-    // Concrete Class: Encapsulation
-    public class Book : Item
+    // Concrete classes
+    // Concrete classes
+    class Book
     {
-        public string ISBN { get; set; }
-        public string Genre { get; set; }
+        private string title;
+        private string author;
 
-        public override void PrintInfo()
+        public Book(string title, string author)
         {
-            Console.WriteLine($"Title: {Title}");
-            Console.WriteLine($"Author: {Author}");
-            Console.WriteLine($"ISBN: {ISBN}");
-            Console.WriteLine($"Genre: {Genre}");
+            this.title = title;
+            this.author = author;
+        }
+
+        public override string ToString()
+        {
+            return $"Title: {title}, Author: {author}";
         }
     }
 }
