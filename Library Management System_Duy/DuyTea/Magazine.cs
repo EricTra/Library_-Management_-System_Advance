@@ -6,16 +6,20 @@ using System.Threading.Tasks;
 
 namespace DuyTea
 {
-    // Concrete Class: Encapsulation
-    public class Magazine : Item
+    class Magazine
     {
-        public string Issue { get; set; }
+        private string title;
+        private string editor;
 
-        public override void PrintInfo()
+        public Magazine(string title, string editor)
         {
-            Console.WriteLine($"Title: {Title}");
-            Console.WriteLine($"Author: {Author}");
-            Console.WriteLine($"Issue: {Issue}");
+            this.title = title;
+            this.editor = editor;
+        }
+
+        public override string ToString()
+        {
+            return $"Title: {title}, Editor: {editor}";
         }
     }
 }
