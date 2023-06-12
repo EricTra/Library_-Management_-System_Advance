@@ -6,22 +6,30 @@ using System.Threading.Tasks;
 
 namespace DuyTea
 {
-    // Concrete classes
-    // Concrete classes
-    class Book
+    // Book class
+    public class Book : Item
     {
-        private string title;
-        private string author;
+        public string author;
+        public int yearOfPublication;
 
-        public Book(string title, string author)
+        public override void TemplateItemInfo()
         {
-            this.title = title;
-            this.author = author;
+            Console.WriteLine("Template Book Info");
+            // Implement the template item info for Book
         }
 
-        public override string ToString()
+        public override void PrintInfo()
         {
-            return $"Title: {title}, Author: {author}";
+            Console.WriteLine($"Book Title: {title}");
+            Console.WriteLine($"Author: {author}");
+            Console.WriteLine($"Year of Publication: {yearOfPublication}");
+        }
+
+        public override void UpdateInfo(string newTitle, int newYearOfPublication)
+        {
+            title = newTitle;
+            yearOfPublication = newYearOfPublication;
+            Console.WriteLine("Book information updated.");
         }
     }
 }
