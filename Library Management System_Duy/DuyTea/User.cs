@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace DuyTea
 {
-    // Abstract classes
-    abstract class User : IUser
+    public class User
     {
-        protected string name;
+        public string name;
 
         public string GetName()
         {
