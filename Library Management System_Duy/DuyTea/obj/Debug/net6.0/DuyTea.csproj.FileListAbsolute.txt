@@ -13,3 +13,11 @@ D:\Github\Library Management System\Library_-Management_-System_Advance\Library 
 D:\Github\Library Management System\Library_-Management_-System_Advance\Library Management System_Duy\DuyTea\obj\Debug\net6.0\DuyTea.pdb
 D:\Github\Library Management System\Library_-Management_-System_Advance\Library Management System_Duy\DuyTea\obj\Debug\net6.0\DuyTea.genruntimeconfig.cache
 D:\Github\Library Management System\Library_-Management_-System_Advance\Library Management System_Duy\DuyTea\obj\Debug\net6.0\ref\DuyTea.dll
+E:\Code Project\Library_-Management_-System_Advance\Library Management System_Duy\DuyTea\obj\Debug\net6.0\DuyTea.csproj.AssemblyReference.cache
+E:\Code Project\Library_-Management_-System_Advance\Library Management System_Duy\DuyTea\obj\Debug\net6.0\DuyTea.GeneratedMSBuildEditorConfig.editorconfig
+E:\Code Project\Library_-Management_-System_Advance\Library Management System_Duy\DuyTea\obj\Debug\net6.0\DuyTea.AssemblyInfoInputs.cache
+E:\Code Project\Library_-Management_-System_Advance\Library Management System_Duy\DuyTea\obj\Debug\net6.0\DuyTea.AssemblyInfo.cs
+E:\Code Project\Library_-Management_-System_Advance\Library Management System_Duy\DuyTea\obj\Debug\net6.0\DuyTea.csproj.CoreCompileInputs.cache
+E:\Code Project\Library_-Management_-System_Advance\Library Management System_Duy\DuyTea\obj\Debug\net6.0\DuyTea.dll
+E:\Code Project\Library_-Management_-System_Advance\Library Management System_Duy\DuyTea\obj\Debug\net6.0\refint\DuyTea.dll
+E:\Code Project\Library_-Management_-System_Advance\Library Management System_Duy\DuyTea\obj\Debug\net6.0\DuyTea.pdb
