@@ -6,78 +6,63 @@ using System.Threading.Tasks;
 
 namespace DuyTea
 {
-    // Behavioral Pattern
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
-    namespace DuyTea
+    // Library class
+    public class Library
     {
-        using System;
-        using System.Collections.Generic;
+        private IteamFactory iteamFactory;
+        private List<User> users;
+        private List<Item> items;
 
-        namespace DuyTea
+        public Library(IteamFactory iteamFactory)
         {
-            // Behavioral Pattern
-            class Library
+            this.iteamFactory = iteamFactory;
+            users = new List<User>();
+            items = new List<Item>();
+        }
+
+        public List<Item> GetItems()
+        {
+            return items;
+        }
+
+        public List<User> GetUsers()
+        {
+            return users;
+        }
+
+        public void AddItem(Item item)
+        {
+            items.Add(item);
+        }
+
+        public void RemoveItem(Item item)
+        {
+            items.Remove(item);
+        }
+
+        public void AddUser(User user)
+        {
+            users.Add(user);
+        }
+
+        public void RemoveUser(User user)
+        {
+            users.Remove(user);
+        }
+
+        public void PrintItems()
+        {
+            foreach (var item in items)
             {
-                private List<LibraryItem> items;
-                private List<IUser> users;
+                item.PrintInfo();
+            }
+        }
 
-                public Library()
-                {
-                    this.items = new List<LibraryItem>();
-                    this.users = new List<IUser>();
-                }
-
-                public List<IUser> GetUsers()
-                {
-                    return users;
-                }
-
-                public List<LibraryItem> GetItems()
-                {
-                    return items;
-                }
-
-                public void AddItem(ItemType itemType, string title, string details)
-                {
-                    LibraryItem item = (LibraryItem)ItemFactory.CreateItem(itemType, title, details);
-                    items.Add(item);
-                }
-
-                public void RemoveItem(LibraryItem item)
-                {
-                    items.Remove(item);
-                }
-
-                public void AddUser(IUser user)
-                {
-                    users.Add(user);
-                }
-
-                public void RemoveUser(IUser user)
-                {
-                    users.Remove(user);
-                }
-
-                public void PrintItems()
-                {
-                    foreach (var item in items)
-                    {
-                        Console.WriteLine(item.ToString());
-                    }
-                }
-
-                public void PrintUsers()
-                {
-                    foreach (var user in users)
-                    {
-                        Console.WriteLine(user.ToString());
-                    }
-                }
+        public void PrintUsers()
+        {
+            foreach (var user in users)
+            {
+                Console.WriteLine($"User Name: {user.GetName()}");
             }
         }
     }
