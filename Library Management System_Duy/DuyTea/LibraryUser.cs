@@ -6,32 +6,24 @@ using System.Threading.Tasks;
 
 namespace DuyTea
 {
-    class LibraryUser : User
+    public class LibraryUser
     {
-        private string address;
-        private List<object> borrowedItems;
+        public string address;
+        public List<Item> borrowedItem;
 
-        public LibraryUser(string name, string address)
+        public void BorrowItem(Item item)
         {
-            this.name = name;
-            this.address = address;
-            this.borrowedItems = new List<object>();
+            borrowedItem.Add(item);
         }
 
-        public void BorrowItem(object item)
+        public void ReturnItem(Item item)
         {
-            borrowedItems.Add(item);
-        }
-
-        public void ReturnItem(object item)
-        {
-            borrowedItems.Remove(item);
+            borrowedItem.Remove(item);
         }
 
         public override string ToString()
         {
-            string borrowedItemInfo = string.Join(", ", borrowedItems.Select(item => item.ToString()));
-            return $"Name: {name}, Address: {address}, Borrowed Items: {borrowedItemInfo}";
+            return $"Address: {address}";
         }
     }
 }
