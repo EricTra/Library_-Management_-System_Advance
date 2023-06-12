@@ -10,132 +10,125 @@ namespace DuyTea
     // Main program
     class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            Library library = new Library();
+            // Create an instance of the Library and IteamFactory
+            IteamFactory itemFactory = new IteamFactory();
+            Library library = new Library(itemFactory);
+
+            // Create a list to store library users
+            List<LibraryUser> users = new List<LibraryUser>();
 
             while (true)
             {
-                Console.WriteLine("Menu:");
-                Console.WriteLine("1. Add Book");
-                Console.WriteLine("2. Add Magazine");
-                Console.WriteLine("3. Add User");
-                Console.WriteLine("4. Borrow Item");
-                Console.WriteLine("5. Return Item");
-                Console.WriteLine("6. View Items");
-                Console.WriteLine("7. View Users");
-                Console.WriteLine("8. Exit");
+                Console.Clear();
 
-                Console.Write("Enter your choice: ");
-                string choice = Console.ReadLine();
+                // Display the menu and get user's choice
+                int choice = DisplayMenu();
                 Console.WriteLine();
 
                 switch (choice)
                 {
-                    case "1":
-                        Console.Write("Enter Book Title: ");
-                        string bookTitle = Console.ReadLine();
-                        Console.Write("Enter Book Author: ");
-                        string bookAuthor = Console.ReadLine();
-
-                        library.AddItem(ItemType.Book, bookTitle, bookAuthor);
-
-                        Console.WriteLine("Book added successfully!");
-                        Console.WriteLine();
-                        break;
-
-                    case "2":
-                        Console.Write("Enter Magazine Title: ");
-                        string magazineTitle = Console.ReadLine();
-                        Console.Write("Enter Magazine Editor: ");
-                        string magazineEditor = Console.ReadLine();
-
-                        library.AddItem(ItemType.Magazine, magazineTitle, magazineEditor);
-
-                        Console.WriteLine("Magazine added successfully!");
-                        Console.WriteLine();
-                        break;
-
-                    case "3":
-                        Console.Write("Enter User Name: ");
+                    case 1:
+                        // Add a user
+                        Console.Write("Enter user name: ");
                         string userName = Console.ReadLine();
-                        Console.Write("Enter User Address: ");
+                        Console.Write("Enter user address: ");
                         string userAddress = Console.ReadLine();
 
-                        IUser user = new LibraryUser(userName, userAddress);
-                        library.AddUser(user);
-
-                        Console.WriteLine("User added successfully!");
-                        Console.WriteLine();
+                        // Create a new LibraryUser object
+                        LibraryUser newUser = new LibraryUser(userName, userAddress);
+                        users.Add(newUser);
+                        Console.WriteLine("User added successfully.");
                         break;
 
-                    case "4":
-                        Console.Write("Enter User Name: ");
-                        string borrowerName = Console.ReadLine();
-                        Console.Write("Enter Item Title: ");
+                    case 2:
+                        // Remove a user
+                        Console.Write("Enter user name: ");
+                        string userToRemove = Console.ReadLine();
+
+                        // Find the user in the list
+                        LibraryUser user = users.FirstOrDefault(u => u.GetName() == userToRemove);
+
+                        if (user != null)
+                        {
+                            users.Remove(user);
+                            Console.WriteLine("User removed successfully.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("User not found.");
+                        }
+                        break;
+
+                    case 3:
+                        // Add an item
+                        Console.Write("Enter item title: ");
                         string itemTitle = Console.ReadLine();
 
-                        IUser borrower = library.GetUsers().FirstOrDefault(u => u.GetName() == borrowerName);
-                        object item = library.GetItems().FirstOrDefault(i => i.GetTitle() == itemTitle);
-
-                        if (borrower != null && item != null)
+                        // Create a new item using the factory
+                        Item newItem = itemFactory.GetItem(itemTitle);
+                        if (newItem != null)
                         {
-                            LibraryUser libraryUser = (LibraryUser)borrower;
-                            libraryUser.BorrowItem(item);
-                            Console.WriteLine("Item borrowed successfully!");
+                            library.AddItem(newItem);
+                            Console.WriteLine("Item added successfully.");
                         }
                         else
                         {
-                            Console.WriteLine("User or Item not found!");
+                            Console.WriteLine("Invalid item type.");
                         }
-
-                        Console.WriteLine();
                         break;
 
-                    case "5":
-                        Console.Write("Enter User Name: ");
-                        string returnerName = Console.ReadLine();
-                        Console.Write("Enter Item Title: ");
-                        string returnItemTitle = Console.ReadLine();
+                    case 4:
+                        // Remove an item
+                        Console.Write("Enter item title: ");
+                        string itemToRemove = Console.ReadLine();
 
-                        IUser returner = library.GetUsers().FirstOrDefault(u => u.GetName() == returnerName);
-                        object returnItem = library.GetItems().FirstOrDefault(i => i.GetTitle() == returnItemTitle);
+                        // Find the item in the library
+                        LibraryItem item = library.GetItem().FirstOrDefault(i => i.GetTitle() == itemToRemove);
 
-                        if (returner != null && returnItem != null)
+                        if (item != null)
                         {
-                            LibraryUser libraryUser = (LibraryUser)returner;
-                            libraryUser.ReturnItem(returnItem);
-                            Console.WriteLine("Item returned successfully!");
+                            library.RemoveItem(item);
+                            Console.WriteLine("Item removed successfully.");
                         }
                         else
                         {
-                            Console.WriteLine("User or Item not found!");
+                            Console.WriteLine("Item not found.");
                         }
-
-                        Console.WriteLine();
                         break;
 
-                    case "6":
-                        Console.WriteLine("Library Items:");
-                        library.PrintItems();
-                        Console.WriteLine();
-                        break;
-
-                    case "7":
+                    case 5:
+                        // Print users
                         Console.WriteLine("Library Users:");
-                        library.PrintUsers();
-                        Console.WriteLine();
+                        foreach (var user in users)
+                        {
+                            Console.WriteLine(user);
+                        }
                         break;
 
-                    case "8":
-                        Console.WriteLine("Exiting...");
-                        return;
+                    case 6:
+                        // Print items
+                        Console.WriteLine("Library Items:");
+                        foreach (var item in library.GetItem())
+                        {
+                            item.PrintInfo();
+                        }
+                        break;
+
+                    case 7:
+                        // Exit the program
+                        Environment.Exit(0);
+                        break;
 
                     default:
-                        Console.WriteLine("Invalid choice! Please try again.");
-                        Console.WriteLine();
+                        Console.WriteLine("Invalid choice. Please try again.");
                         break;
                 }
+
+                Console.WriteLine();
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
             }
         }
     }
