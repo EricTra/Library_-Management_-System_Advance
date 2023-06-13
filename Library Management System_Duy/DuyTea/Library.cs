@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace DuyTea
 {
-    // Library class
+    // Class representing a library
     public class Library
     {
-        private IteamFactory iteamFactory;
-        private List<User> users;
+        private ItemFactory itemFactory;
+        private List<LibraryUser> users;
         private List<Item> items;
 
-        public Library(IteamFactory iteamFactory)
+        public Library()
         {
-            this.iteamFactory = iteamFactory;
-            users = new List<User>();
+            itemFactory = new ItemFactory();
+            users = new List<LibraryUser>();
             items = new List<Item>();
         }
 
@@ -25,44 +25,75 @@ namespace DuyTea
             return items;
         }
 
-        public List<User> GetUsers()
+        public List<LibraryUser> GetUsers()
         {
             return users;
         }
 
-        public void AddItem(Item item)
+        public void AddItem(string itemType, string title, string authorEditor, int yearOfPublication)
         {
+            Item item = itemFactory.GetItem(itemType, title, authorEditor, yearOfPublication);
             items.Add(item);
+            Console.WriteLine("Item added successfully.");
         }
 
         public void RemoveItem(Item item)
         {
-            items.Remove(item);
+            if (items.Contains(item))
+            {
+                items.Remove(item);
+                Console.WriteLine("Item removed successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Item not found in the library.");
+            }
         }
 
-        public void AddUser(User user)
+        public void AddUser(string address)
         {
+            LibraryUser user = new LibraryUser(address);
             users.Add(user);
+            Console.WriteLine("User added successfully.");
         }
 
-        public void RemoveUser(User user)
+        public void RemoveUser(LibraryUser user)
         {
-            users.Remove(user);
+            if (users.Contains(user))
+            {
+                users.Remove(user);
+                Console.WriteLine("User removed successfully.");
+            }
+            else
+            {
+                Console.WriteLine("User not found in the library.");
+            }
         }
 
         public void PrintItems()
         {
-            foreach (var item in items)
+            Console.WriteLine("Library Items:");
+            foreach (Item item in items)
             {
-                item.PrintInfo();
+                if (item is Book)
+                {
+                    Book book = (Book)item;
+                    book.PrintInfo();
+                }
+                else if (item is Magazine)
+                {
+                    Magazine magazine = (Magazine)item;
+                    magazine.PrintInfo();
+                }
             }
         }
 
         public void PrintUsers()
         {
-            foreach (var user in users)
+            Console.WriteLine("Library Users:");
+            foreach (LibraryUser user in users)
             {
-                Console.WriteLine($"User Name: {user.GetName()}");
+                Console.WriteLine(user);
             }
         }
     }
