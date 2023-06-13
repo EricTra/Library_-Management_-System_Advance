@@ -6,17 +6,20 @@ using System.Threading.Tasks;
 
 namespace DuyTea
 {
-    // IteamFactory class
+    // Factory class for creating items
     public class ItemFactory
     {
-        public Item getItem(string itemType)
+        public Item GetItem(string itemType, string title, string authorEditor, int yearOfPublication)
         {
-            if (itemType == "Book")
-                return new Book();
-            else if (itemType == "Magazine")
-                return new Magazine();
-
-            return null;
+            switch (itemType.ToLower())
+            {
+                case "book":
+                    return new Book(title, authorEditor, yearOfPublication);
+                case "magazine":
+                    return new Magazine(title, authorEditor, yearOfPublication);
+                default:
+                    throw new ArgumentException("Invalid item type: " + itemType);
+            }
         }
     }
 }
