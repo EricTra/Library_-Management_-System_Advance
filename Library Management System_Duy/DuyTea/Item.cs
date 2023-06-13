@@ -6,20 +6,26 @@ using System.Threading.Tasks;
 
 namespace DuyTea
 {
-    // Item class
+    // Abstract class for library items
     public abstract class Item
     {
-        public string title;
+        protected string title;
 
         public string GetTitle()
         {
             return title;
         }
 
-        public abstract void TemplateItemInfo();
+        // Template method
+        public void PrintInfo()
+        {
+            Console.WriteLine("Title: " + title);
+            TemplateItemInfo();
+            Console.WriteLine();
+        }
 
-        public abstract void PrintInfo();
-
+        // Abstract method to be implemented by subclasses
+        protected abstract void TemplateItemInfo();
         public abstract void UpdateInfo(string newTitle, int newYearOfPublication);
     }
 }
