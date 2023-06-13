@@ -7,129 +7,142 @@ using System.Threading.Tasks;
 
 namespace DuyTea
 {
-    // Main program
-    class Program
+    // Main class
+    public class Program
     {
+        private static Library library;
+        private static List<LibraryUser> users;
+        private static int choice;
+
         public static void Main(string[] args)
         {
-            // Create an instance of the Library and IteamFactory
-            IteamFactory itemFactory = new IteamFactory();
-            Library library = new Library(itemFactory);
+            library = new Library();
+            users = new List<LibraryUser>();
+            choice = 0;
 
-            // Create a list to store library users
-            List<LibraryUser> users = new List<LibraryUser>();
-
-            while (true)
+            while (choice != 7)
             {
-                Console.Clear();
-
-                // Display the menu and get user's choice
-                int choice = DisplayMenu();
-                Console.WriteLine();
+                DisplayMenu();
+                choice = GetChoice();
 
                 switch (choice)
                 {
                     case 1:
-                        // Add a user
-                        Console.Write("Enter user name: ");
-                        string userName = Console.ReadLine();
-                        Console.Write("Enter user address: ");
-                        string userAddress = Console.ReadLine();
-
-                        // Create a new LibraryUser object
-                        LibraryUser newUser = new LibraryUser(userName, userAddress);
-                        users.Add(newUser);
-                        Console.WriteLine("User added successfully.");
+                        AddItem();
                         break;
-
                     case 2:
-                        // Remove a user
-                        Console.Write("Enter user name: ");
-                        string userToRemove = Console.ReadLine();
-
-                        // Find the user in the list
-                        LibraryUser user = users.FirstOrDefault(u => u.GetName() == userToRemove);
-
-                        if (user != null)
-                        {
-                            users.Remove(user);
-                            Console.WriteLine("User removed successfully.");
-                        }
-                        else
-                        {
-                            Console.WriteLine("User not found.");
-                        }
+                        RemoveItem();
                         break;
-
                     case 3:
-                        // Add an item
-                        Console.Write("Enter item title: ");
-                        string itemTitle = Console.ReadLine();
-
-                        // Create a new item using the factory
-                        Item newItem = itemFactory.GetItem(itemTitle);
-                        if (newItem != null)
-                        {
-                            library.AddItem(newItem);
-                            Console.WriteLine("Item added successfully.");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid item type.");
-                        }
+                        AddUser();
                         break;
-
                     case 4:
-                        // Remove an item
-                        Console.Write("Enter item title: ");
-                        string itemToRemove = Console.ReadLine();
-
-                        // Find the item in the library
-                        LibraryItem item = library.GetItem().FirstOrDefault(i => i.GetTitle() == itemToRemove);
-
-                        if (item != null)
-                        {
-                            library.RemoveItem(item);
-                            Console.WriteLine("Item removed successfully.");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Item not found.");
-                        }
+                        RemoveUser();
                         break;
-
                     case 5:
-                        // Print users
-                        Console.WriteLine("Library Users:");
-                        foreach (var user in users)
-                        {
-                            Console.WriteLine(user);
-                        }
+                        PrintItems();
                         break;
-
                     case 6:
-                        // Print items
-                        Console.WriteLine("Library Items:");
-                        foreach (var item in library.GetItem())
-                        {
-                            item.PrintInfo();
-                        }
+                        PrintUsers();
                         break;
-
                     case 7:
-                        // Exit the program
-                        Environment.Exit(0);
+                        Console.WriteLine("Exiting...");
                         break;
-
                     default:
                         Console.WriteLine("Invalid choice. Please try again.");
                         break;
                 }
 
                 Console.WriteLine();
-                Console.WriteLine("Press any key to continue...");
-                Console.ReadKey();
             }
+        }
+
+        private static void DisplayMenu()
+        {
+            Console.WriteLine("Library Menu:");
+            Console.WriteLine("1. Add Item");
+            Console.WriteLine("2. Remove Item");
+            Console.WriteLine("3. Add User");
+            Console.WriteLine("4. Remove User");
+            Console.WriteLine("5. Print Items");
+            Console.WriteLine("6. Print Users");
+            Console.WriteLine("7. Exit");
+        }
+
+        private static int GetChoice()
+        {
+            Console.Write("Enter your choice: ");
+            string input = Console.ReadLine();
+            int choice;
+            int.TryParse(input, out choice);
+            return choice;
+        }
+
+        private static void AddItem()
+        {
+            Console.WriteLine("Enter item details:");
+            Console.Write("Item Type (Book/Magazine): ");
+            string itemType = Console.ReadLine();
+            Console.Write("Title: ");
+            string title = Console.ReadLine();
+            Console.Write("Author/Editor: ");
+            string authorEditor = Console.ReadLine();
+            Console.Write("Year of Publication: ");
+            int yearOfPublication;
+            int.TryParse(Console.ReadLine(), out yearOfPublication);
+
+            library.AddItem(itemType, title, authorEditor, yearOfPublication);
+        }
+
+        private static void RemoveItem()
+        {
+            Console.Write("Enter the title of the item to remove: ");
+            string title = Console.ReadLine();
+
+            Item itemToRemove = library.GetItems().Find(item => item.GetTitle() == title);
+            if (itemToRemove != null)
+            {
+                library.RemoveItem(itemToRemove);
+            }
+            else
+            {
+                Console.WriteLine("Item not found in the library.");
+            }
+        }
+
+        private static void AddUser()
+        {
+            Console.WriteLine("Enter user details:");
+            Console.Write("Address: ");
+            string address = Console.ReadLine();
+
+            library.AddUser(address);
+        }
+
+        private static void RemoveUser()
+        {
+            Console.Write("Enter the address of the user to remove: ");
+            string address = Console.ReadLine();
+
+            LibraryUser userToRemove = library.GetUsers().Find(user => user.ToString() == "Address: " + address);
+            if (userToRemove != null)
+            {
+                library.RemoveUser(userToRemove);
+            }
+            else
+            {
+                Console.WriteLine("User not found in the library.");
+            }
+        }
+
+        private static void PrintItems()
+        {
+            library.PrintItems();
+        }
+
+        private static void PrintUsers()
+        {
+            library.PrintUsers();
         }
     }
 }
