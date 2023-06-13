@@ -6,30 +6,35 @@ using System.Threading.Tasks;
 
 namespace DuyTea
 {
-    // Magazine class
+    // Concrete class for magazines
     public class Magazine : Item
     {
-        public string editor;
-        public int yearOfPublication;
+        private string editor;
+        private int yearOfPublication;
 
-        public override void TemplateItemInfo()
+        public Magazine(string title, string editor, int yearOfPublication)
         {
-            Console.WriteLine("Template Magazine Info");
-            // Implement the template item info for Magazine
+            this.title = title;
+            this.editor = editor;
+            this.yearOfPublication = yearOfPublication;
         }
 
-        public override void PrintInfo()
+        protected override void TemplateItemInfo()
         {
-            Console.WriteLine($"Magazine Title: {title}");
-            Console.WriteLine($"Editor: {editor}");
-            Console.WriteLine($"Year of Publication: {yearOfPublication}");
+            Console.WriteLine("Editor: " + editor);
+            Console.WriteLine("Year of Publication: " + yearOfPublication);
         }
 
         public override void UpdateInfo(string newTitle, int newYearOfPublication)
         {
             title = newTitle;
             yearOfPublication = newYearOfPublication;
-            Console.WriteLine("Magazine information updated.");
+        }
+
+        public void PrintInfo()
+        {
+            Console.WriteLine("Magazine Info:");
+            base.PrintInfo();
         }
     }
 }
